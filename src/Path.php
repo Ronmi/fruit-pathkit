@@ -18,7 +18,8 @@ class Path
      * Constructor
      *
      * @param $path string the path you want to validate or convert.
-     * @param $base string (optional) base directory when converting relative path to absolute path. default to current working directory.
+     * @param $base string (optional) base directory when converting
+              relative path to absolute path. default to current working directory.
      * @param $separator string directory separator, defaults to DIRECTORY_SEPARATOR.
      */
     public function __construct($path, $base = null, $separator = null)
@@ -40,14 +41,15 @@ class Path
         $this->normalized = null;
     }
 
-    private static function strip($path, $sep) {
+    private static function strip($path, $sep)
+    {
         if (substr($path, strlen($path) - 1) == $sep) {
             $path = substr($path, 0, strlen($path) - 1);
         }
         return $path;
     }
 
-    private static function is_abs($path, $sep)
+    private static function isAbs($path, $sep)
     {
         list($drive) = explode($sep, $path);
         return ($drive == '' or (strlen($drive) == 2 and ctype_alpha($drive[0]) and $drive[1] == ':'));
@@ -58,13 +60,12 @@ class Path
      */
     public function isAbsolute()
     {
-        return self::is_abs($this->path, $this->separator);
+        return self::isAbs($this->path, $this->separator);
     }
 
     private static function doExpand($path, $base, $sep)
     {
-        $dir_sep = $sep;
-        if (self::is_abs($path, $sep)) {
+        if (self::isAbs($path, $sep)) {
             // this is absolute path
             return $path;
         }
