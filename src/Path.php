@@ -165,7 +165,7 @@ class Path
         }
         $norm = $this->normalize();
         $target = explode($this->separator, $norm);
-        $base = explode($this->separator, self::doNorm($this->base, getcwd(), $this->separator));
+        $base = explode($this->separator, self::doNorm($base, getcwd(), $this->separator));
 
         // if one is windows and another is unix, or they are in different
         // windows drive, then we have to return the absolute path.

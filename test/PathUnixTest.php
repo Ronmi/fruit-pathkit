@@ -74,25 +74,26 @@ class PathUnixTest extends \PHPUnit_Framework_TestCase
     public function relativeP()
     {
         return array(
-            array("/a", "/a/b/c", "b/c"),
-            array("/a/b", "/a/c", "../c"),
-            array("/a", "/d/b/c", "../d/b/c"),
-            array("/a", ".", "."),
-            array("/", ".", "."),
-            array("/", "..", "."),
-            array("/", "/", "."),
-            array("/a/b", "..", ".."),
-            array("/a", "..", ".."),
+            array("/a", "/a/b/c", null, "b/c"),
+            array("/a/b", "/a/c", null, "../c"),
+            array("/a", "/d/b/c", null, "../d/b/c"),
+            array("/a", ".", null, "."),
+            array("/", ".", null, "."),
+            array("/", "..", null, "."),
+            array("/", "/", null, "."),
+            array("/a/b", "..", null, ".."),
+            array("/a", "..", null, ".."),
+            array("/work/temp", "../my.file", "/another/work", "../../work/my.file"),
         );
     }
 
     /**
      * @dataProvider relativeP
      */
-    public function testRelative($base, $path, $expect)
+    public function testRelative($base, $path, $rel, $expect)
     {
         $p = new Path($path, $base, "/");
-        $actual = $p->relative();
+        $actual = $p->relative($rel);
         $this->assertEquals($expect, $actual);
     }
 
