@@ -52,7 +52,7 @@ class Path
     private static function isAbs($path, $sep)
     {
         list($drive) = explode($sep, $path);
-        return ($drive == '' or (strlen($drive) == 2 and ctype_alpha($drive[0]) and $drive[1] == ':'));
+        return ($drive === '' or (strlen($drive) === 2 and ctype_alpha($drive[0]) and $drive[1] === ':'));
     }
 
     /**
@@ -192,7 +192,8 @@ class Path
             return '.';
         }
         $ret = array();
-        if (count($base) != 0) {
+        $base_size = count($base);
+        if ($base_size > 0 && !($base_size ==1 && $base[0] === "")) {
             $ret = array_fill(0, count($base), '..');
         }
         if ($norm != self::strip($norm, $this->separator)) {
