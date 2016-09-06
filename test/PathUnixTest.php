@@ -15,6 +15,12 @@ class PathUnixTest extends \PHPUnit_Framework_TestCase
             array("/", "..", "/.."),
             array("/", "/", "/"),
             array("/a/b/c/", "d", "/a/b/c/d"),
+
+            // test against asterisk
+            array("/qwe", "*", "/qwe/*"),
+            array("/qwe/qwe", "*/*", "/qwe/qwe/*/*"),
+            array("/a/b/c/", "../*", "/a/b/c/../*"),
+            array("/", "*", "/*"),
         );
     }
 
@@ -58,6 +64,14 @@ class PathUnixTest extends \PHPUnit_Framework_TestCase
             array("/a/b/..", "/a/c", true),
             array("/a/b", "c/d/../../e/f", true),
             array("/a/b", "c/d/../../../e/f", false),
+
+            // test against asterisk
+            array("/a", "/a/b/*", true),
+            array("/b", "/a/b/*", false),
+            array("/b", "/a/*", false),
+            array("/a/b/..", "/a/*", true),
+            array("/a/b", "c/d/../../*", true),
+            array("/a/b", "c/d/../../../*", false),
         );
     }
 
@@ -83,7 +97,17 @@ class PathUnixTest extends \PHPUnit_Framework_TestCase
             array("/", "/", null, "."),
             array("/a/b", "..", null, ".."),
             array("/a", "..", null, ".."),
+            array("/", "a", null, "a"),
             array("/work/temp", "../my.file", "/another/work", "../../work/my.file"),
+
+            // test against asterisk
+            array("/a", "/a/*/c", null, "*/c"),
+            array("/a/b", "/a/*", null, "../*"),
+            array("/a", "/d/*/c", null, "../d/*/c"),
+            array("/a", "*", null, "*"),
+            array("/", "*", null, "*"),
+            array("/", "../*", null, "*"),
+            array("/work/temp", "../*", "/another/work", "../../work/*"),
         );
     }
 
@@ -104,10 +128,21 @@ class PathUnixTest extends \PHPUnit_Framework_TestCase
             array("//", true),
             array("/..", true),
             array("..", false),
+            array("../a", false),
             array(".", false),
+            array("./a", false),
             array("a", false),
             array("a/../../../../../../../../../../.././../../../../", false),
             array("a/../../../../../../../../../../.././../../../..//////", false),
+
+            // test against asterisk
+            array("/*", true),
+            array("/../*", true),
+            array("../*", false),
+            array("./*", false),
+            array("*", false),
+            array("*/../../../../../../../../../../.././../../../../", false),
+            array("*/../../../../../*/../../../../.././../../../../", false),
         );
     }
 
