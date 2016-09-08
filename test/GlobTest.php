@@ -7,6 +7,31 @@ use Fruit\PathKit\Path;
 
 class GlobTest extends \PHPUnit_Framework_TestCase
 {
+    public function convP()
+    {
+        return array(
+            array('a/b?[cd](e|f){1}.+.php', 'a/b?[cd](e|f){1}.+.php', true),
+            array('a/b?[cd](e|f){1}.+.php', 'a/b?[c](e|f){1}.+.php', false),
+            array('a/b?[cd](e|f){1}.+.php', 'a/b?[cd](e){1}.+.php', false),
+            array('a/b?[cd](e|f){1}.+.php', 'a/b?[d](f){1}.+.php', false),
+            array('a/b?[cd](e|f){1}.+.php', 'a/[cd](e|f){1}.+.php', false),
+            array('a/b?[cd](e|f){1}.+.php', 'a/b?[cd](e|f){1}a.php', false),
+        );
+    }
+
+    /**
+     * @dataProvider convP
+     */
+    public function testPathToRegexp($path, $test, $expect)
+    {
+        $regex = '/' . Glob::pathToRegexp($path, "/") . '/';
+        if ($expect) {
+            $this->assertRegExp($regex, $test);
+        } else {
+            $this->assertNotRegExp($regex, $test);
+        }
+    }
+
     public function regP()
     {
         return json_decode(file_get_contents(__DIR__ . '/assets/glob.regex.json'));
@@ -22,13 +47,13 @@ class GlobTest extends \PHPUnit_Framework_TestCase
 
         if ($expect) {
             $this->assertRegExp($regexp, $path, sprintf(
-                "%s: pattern, path: [%s], [%s] expected to match",
-                $msg, $pattern, $path
+                "%s: pattern, path, regexp: [%s], [%s], [%s] expected to match",
+                $msg, $pattern, $path, $regexp
             ));
         } else {
             $this->assertNotRegExp($regexp, $path, sprintf(
-                "%s: pattern, path: [%s], [%s] expected to not match",
-                $msg, $pattern, $path
+                "%s: pattern, path, regexp: [%s], [%s], [%s] expected to not match",
+                $msg, $pattern, $path, $regexp
             ));
         }
     }

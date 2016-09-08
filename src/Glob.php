@@ -79,6 +79,34 @@ class Glob
     }
 
     /**
+     * Converts path to regexp (without prefix/postfix slash)
+     *
+     * CAUTION: asterisk is not converted.
+     *
+     * @return string
+     */
+    public static function pathToRegexp($path, $separator)
+    {
+        $ret = $path;
+        if ($separator != "\\") {
+            $ret = str_replace("\\", "\\\\", $ret);
+        }
+        $ret = str_replace($separator, "\\".$separator, $ret);
+        $ret = str_replace('.', '\.', $ret);
+        $ret = str_replace('+', '\+', $ret);
+        $ret = str_replace('?', '\?', $ret);
+        $ret = str_replace('^', '\^', $ret);
+        $ret = str_replace('|', '\|', $ret);
+        $ret = str_replace('(', '\(', $ret);
+        $ret = str_replace(')', '\)', $ret);
+        $ret = str_replace('[', '\[', $ret);
+        $ret = str_replace(']', '\]', $ret);
+        $ret = str_replace('{', '\{', $ret);
+        $ret = str_replace('}', '\}', $ret);
+        return $ret;
+    }
+
+    /**
      * Compiles globbing pattern to regular expression.
      *
      * We provide this method if you're not going to match globbing pattern
