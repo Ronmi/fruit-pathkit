@@ -93,4 +93,30 @@ class GlobTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals(0, $cnt);
     }
+
+    public function testIgnoranceIterator()
+    {
+        $g = new Glob('test/assets/**/*.json', "/");
+        $regex = $g->regex();
+        $expect = 2;
+        $cnt = 0;
+        foreach ($g->iterate() as $v) {
+            $this->assertRegExp($regex, $v);
+            $cnt++;
+        }
+        $this->assertEquals($expect, $cnt);
+    }
+
+    public function testIgnoreAllIterator()
+    {
+        $g = new Glob('test/assets/**', "/");
+        $regex = $g->regex();
+        $expect = 4; // 3 files + 1 dir
+        $cnt = 0;
+        foreach ($g->iterate() as $v) {
+            $this->assertRegExp($regex, $v);
+            $cnt++;
+        }
+        $this->assertEquals($expect, $cnt);
+    }
 }

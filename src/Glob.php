@@ -70,7 +70,8 @@ class Glob
             $ret .= '^';
         }
 
-        foreach ($this->parts as $e) {
+        $max = count($this->parts);
+        foreach ($this->parts as $idx => $e) {
             switch ($e[0]) {
                 case self::DIR:
                     $tmp = str_replace('.', '\.', $e[1]);
@@ -81,7 +82,14 @@ class Glob
                     $ret .= $e[1] . '\/';
                     break;
                 case self::IGN:
-                    $ret .= '(.+\/)?';
+                    $dest = '(.+\/)?';
+
+                    if ($idx === $max-1) {
+                        // special treatment for ** as last element
+                        $dest = '.+';
+                    }
+
+                    $ret .= $dest;
                     break;
             }
         }
@@ -137,7 +145,7 @@ class Glob
 
                 case self::DYN:
                     $regex = '/^' . $data . '$/';
-                    if ($h = opendir($path)) {
+                    if (is_dir($path) and $h = opendir($path)) {
                         while (false !== ($name = readdir($h))) {
                             if (1 !== preg_match($regex, $name)) {
                                 continue;
@@ -151,6 +159,28 @@ class Glob
                     break;
 
                 case self::IGN:
+                    if ($level < $max-1) {
+                        // match against next level
+                        array_push($pending, array($path, $level+1));
+                    }
+
+                    // iterate every child, examine them with this level
+                    if (is_dir($path) and $h = opendir($path)) {
+                        while (false !== ($name = readdir($h))) {
+                            // skip . and ..
+                            if ($name === '.' or $name === '..') {
+                                continue;
+                            }
+                            $dest = $path . $this->separator . $name;
+                            array_push($pending, array($dest, $level));
+
+                            // if ** is last level, all children are matched
+                            if ($level === $max-1) {
+                                yield $dest;
+                            }
+                        }
+                        closedir($h);
+                    }
                     break;
             }
         }
