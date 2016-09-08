@@ -60,8 +60,8 @@ class Glob
                     return array(self::DIR, $dir);
                 }
 
-                $regexp = str_replace('*', "[^\\" . $sep . ']*', $dir);
-                $regexp = str_replace('.', '\.', $regexp);
+                $regexp = self::pathToRegexp($dir, $sep);
+                $regexp = str_replace('*', "[^\\" . $sep . ']*', $regexp);
                 return array(self::DYN, $regexp);
             },
             $arr
@@ -117,16 +117,18 @@ class Glob
      *
      * @return string
      */
-    public function regex()
+    public function regex($base = '')
     {
         $ret = '/(^|\/)';
+        if ($base != '') {
+            $ret = '/^' . self::pathToRegexp($base, $this->separator);
+        }
 
         $max = count($this->parts);
         foreach ($this->parts as $idx => $e) {
             switch ($e[0]) {
                 case self::DIR:
-                    $tmp = str_replace('.', '\.', $e[1]);
-                    $tmp = str_replace('$', '\$', $tmp);
+                    $tmp = self::pathToRegexp($e[1], $this->separator);
                     $ret .= $tmp . '\/';
                     break;
                 case self::DYN:
