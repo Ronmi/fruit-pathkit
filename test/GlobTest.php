@@ -16,6 +16,8 @@ class GlobTest extends \PHPUnit_Framework_TestCase
             array('a/b?[cd](e|f){1}.+.php', 'a/b?[d](f){1}.+.php', false),
             array('a/b?[cd](e|f){1}.+.php', 'a/[cd](e|f){1}.+.php', false),
             array('a/b?[cd](e|f){1}.+.php', 'a/b?[cd](e|f){1}a.php', false),
+            array('a/b?[cd](e|f){1}.+.php', 'aa/b?[cd](e|f){1}.+.php', false),
+            array('a/b?[cd](e|f){1}.+.php', 'a/b?[cd](e|f){1}.+.phpp', false),
         );
     }
 
@@ -24,7 +26,7 @@ class GlobTest extends \PHPUnit_Framework_TestCase
      */
     public function testPathToRegexp($path, $test, $expect)
     {
-        $regex = '/' . Glob::pathToRegexp($path, "/") . '/';
+        $regex = '/^' . Glob::pathToRegexp($path, "/") . '$/';
         if ($expect) {
             $this->assertRegExp($regex, $test);
         } else {
