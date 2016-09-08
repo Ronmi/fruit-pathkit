@@ -6,10 +6,12 @@
   ["a/b.c*", "/home/a/b.cat", true, "wildcard ext (post)"],
   ["a/b.c*", "/home/a/b.d", false, "wildcard ext (post)"],
   ["a/b.c*", "/home/a/b.dat", false, "wildcard ext (post)"],
+  ["a/b.c*", "/home/a/boc", false, "wildcard ext (post)"],
 
   ["a/b.*c", "/home/a/b.c", true, "wildcard ext (pre)"],
   ["a/b.*c", "/home/a/b.dac", true, "wildcard ext (pre)"],
   ["a/b.*c", "/home/a/b.cad", false, "wildcard ext (pre)"],
+  ["a/b.*c", "/home/a/booc", false, "wildcard ext (pre)"],
   
   ["a/b*c", "/home/a/bc", true, "wildcard name (no ext)"],
   ["a/b*c", "/home/a/boc", true, "wildcard name (no ext)"],
@@ -24,6 +26,7 @@
   ["a/b*.c", "/home/a/ab.c", false, "wildcard name (post)"],
   ["a/b*.c", "/home/a/ab.cat", false, "wildcard name (post)"],
   ["a/b*.c", "/home/a/bc", false, "wildcard name (post)"],
+  ["a/b*.c", "/home/a/bboc", false, "wildcard name (post)"],
 
   ["a/*b.c", "/home/a/b.c", true, "wildcard name (pre)"],
   ["a/*b.c", "/home/a/ab.c", true, "wildcard name (pre)"],
@@ -31,6 +34,7 @@
   ["a/*b.c", "/home/a/bc.c", false, "wildcard name (pre)"],
   ["a/*b.c", "/home/a/ab.cat", false, "wildcard name (pre)"],
   ["a/*b.c", "/home/a/bc", false, "wildcard name (pre)"],
+  ["a/*b.c", "/home/a/bbc", false, "wildcard name (pre)"],
 
   ["a/*/b.c", "/home/a/a/b.c", true, "wildcard dir"],
   ["a/*/b.c", "/home/a/b/b.c", true, "wildcard dir"],
