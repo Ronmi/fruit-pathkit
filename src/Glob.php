@@ -2,8 +2,27 @@
 
 namespace Fruit\PathKit;
 
-/**
- */
+/// An easy to use globbing system.
+///
+/// Basically, the pattern is composed by `/`, `*`, `**` and names.
+/// For example:
+///
+/// > // matches this files
+/// > foo/bar.json
+/// > // matches all .json files in current directory
+/// > *.json
+/// > // matches all xxxTest.php files in child directory, not recursive
+/// > */*Test.php
+/// > // same as above, but recursive
+/// > test/**/*Test.php
+/// > // recursively match all children
+/// > test/**
+///
+/// The pattern parser has pretty good fault tolerance:
+///
+/// 1. No absolute pattern, `/a/b` will be `a/b`.
+/// 2. `**/**/a` will be `**/a`
+/// 3. Cannot use `**` with other patterns, so `a/b**/c` will be `a/**/c`
 class Glob
 {
     const DIR = 0; // static part
@@ -59,6 +78,14 @@ class Glob
     }
 
     /**
+     * Compiles globbing pattern to regular expression.
+     *
+     * We provide this method if you're not going to match globbing pattern
+     * against real filesystem, or just want to gain control of your program's
+     * flow.
+     *
+     * This method is also used in test codes of PathKit.
+     *
      * @return string
      */
     public function regex()
@@ -102,6 +129,11 @@ class Glob
     }
 
     /**
+     * Recursive iterates through $base, returns every files and directories
+     * matching this globbing pattern.
+     *
+     * This method is a generator.
+     *
      * @return Iterator
      */
     public function iterate($base = '')
