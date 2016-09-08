@@ -32,7 +32,6 @@ class Glob
     // parsed elements
     // each element is an array(type, data)
     private $parts;
-    private $isAbs;
     private $separator;
 
     public function __construct($pattern, $separator = null)
@@ -42,13 +41,15 @@ class Glob
         }
         $this->separator = $separator;
         $this->parts = self::parse($pattern, $separator);
-        $this->isAbs = ($this->parts[0][0] === self::DIR and $this->parts[0][1] === '');
     }
 
     private static function parse($pattern, $sep)
     {
         $pattern = preg_replace('/\*{2,}/', '**', $pattern);
         $arr = explode('/', $pattern);
+        if ((new Path($pattern, null, $sep))->isAbsolute()) {
+            array_shift($arr);
+        }
 
         $tmp = array_map(
             function ($dir) use ($sep) {
@@ -90,12 +91,7 @@ class Glob
      */
     public function regex()
     {
-        $ret = '/';
-
-        if ($this->isAbs) {
-            // absolute pattern
-            $ret .= '^';
-        }
+        $ret = '/(^|\/)';
 
         $max = count($this->parts);
         foreach ($this->parts as $idx => $e) {
@@ -138,24 +134,17 @@ class Glob
      */
     public function iterate($base = '')
     {
-        $initLevel = 0;
-        if ($this->isAbs) {
-            // ignore $base
-            $base = '/';
-            $initLevel = 1;
-        } else {
-            if ($base === '') {
-                $base = '.';
-            }
-            $base = (new Path($base, null, $this->separator))->normalize();
-            if (!is_dir($base)) {
-                $base = dirname($base);
-            }
+        if ($base === '') {
+            $base = '.';
+        }
+        $base = (new Path($base, null, $this->separator))->normalize();
+        if (!is_dir($base)) {
+            $base = dirname($base);
         }
 
         // array(data, level)
         // level is index of $this->parts
-        $pending = array(array($base, $initLevel));
+        $pending = array(array($base, 0));
         $max = count($this->parts);
 
         while (($cur = array_pop($pending)) !== null) {

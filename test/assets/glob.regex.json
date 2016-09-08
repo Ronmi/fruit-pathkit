@@ -59,15 +59,5 @@
   ["a/**/b.c", "/home/a/1/b.c", true, "double star"],
   ["a/**/b.c", "/home/a/1/2/b.c", true, "double star"],
   ["a/**/b.c", "/home/a", false, "double star"],
-  ["a/**/b.c", "/home/b.c", false, "double star"],
-
-  ["/*", "/a.b", true, "absolute pattern"],
-  ["/*.b", "/a.b", true, "absolute pattern"],
-  ["/a.*", "/a.b", true, "absolute pattern"],
-  ["/a.*", "/a/a.b", false, "absolute pattern"],
-  ["/*/*", "/home/a.b", true, "absolute pattern"],
-  ["/**/a.b", "/a.b", true, "absolute pattern"],
-  ["/**/a.b", "/a/a.b", true, "absolute pattern"],
-  ["/**/**/a.b", "/a.b", true, "absolute pattern"],
-  ["/**/**/a.b", "/a/a.b", true, "absolute pattern"]
+  ["a/**/b.c", "/home/b.c", false, "double star"]
 ]
