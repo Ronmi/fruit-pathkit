@@ -44,4 +44,53 @@ class GlobTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals(1, $cnt);
     }
+
+    public function dynP()
+    {
+        return array(
+            array('test/*/glob.regex.json', 1),
+            array('*/assets/glob.regex.json', 1),
+            array('test/assets/glob.regex.*', 1),
+            array('test/a*/glob.regex.*', 1),
+            array('t*/a*/glob.regex.*', 1),
+        );
+    }
+
+    /**
+     * @dataProvider dynP
+     */
+    public function testDynamicIterator($pattern, $expect)
+    {
+        $g = new Glob($pattern, "/");
+        $regex = $g->regex();
+        $cnt = 0;
+        foreach ($g->iterate() as $v) {
+            $this->assertRegExp($regex, $v);
+            $cnt++;
+        }
+        $this->assertEquals($expect, $cnt);
+    }
+
+    public function dynFaultP()
+    {
+        return array(
+            array('src/assets/*'),
+            array('test/assets/dyn_faulty/*.dot'),
+        );
+    }
+
+    /**
+     * @dataProvider dynFaultP
+     */
+    public function testDynamicIteratorError($pattern)
+    {
+        $g = new Glob($pattern, "/");
+        $regex = $g->regex();
+        $cnt = 0;
+        foreach ($g->iterate() as $v) {
+            $this->assertTrue(false, $v . ' should not be here');
+            $cnt++;
+        }
+        $this->assertEquals(0, $cnt);
+    }
 }

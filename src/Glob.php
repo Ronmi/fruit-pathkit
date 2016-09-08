@@ -119,13 +119,27 @@ class Glob
 
             switch ($type) {
                 case self::DIR:
-                    $dest = (new Path($data, $path, $this->separator))->normalize();
+                    $dest = $path . $this->separator . $data;
                     if (file_exists($dest)) {
                         array_push($pending, array($dest, $level+1));
                     }
                     break;
+
                 case self::DYN:
+                    $regex = '/^' . $data . '$/';
+                    if ($h = opendir($path)) {
+                        while (false !== ($name = readdir($h))) {
+                            if (1 !== preg_match($regex, $name)) {
+                                continue;
+                            }
+
+                            $dest = $path . $this->separator . $name;
+                            array_push($pending, array($dest, $level+1));
+                        }
+                        closedir($h);
+                    }
                     break;
+
                 case self::IGN:
                     break;
             }
