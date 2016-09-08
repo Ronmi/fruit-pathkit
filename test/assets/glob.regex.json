@@ -1,0 +1,67 @@
+[
+  ["a/b", "a/b", true, "simple case"],
+  ["a/b", "/home/a/b", true, "simple case"],
+  
+  ["a/b.c", "/home/a/b.c", true, "with ext"],
+  ["a/b.c*", "/home/a/b.cat", true, "wildcard ext (post)"],
+  ["a/b.c*", "/home/a/b.d", false, "wildcard ext (post)"],
+  ["a/b.c*", "/home/a/b.dat", false, "wildcard ext (post)"],
+
+  ["a/b.*c", "/home/a/b.c", true, "wildcard ext (pre)"],
+  ["a/b.*c", "/home/a/b.dac", true, "wildcard ext (pre)"],
+  ["a/b.*c", "/home/a/b.cad", false, "wildcard ext (pre)"],
+  
+  ["a/b*c", "/home/a/bc", true, "wildcard name (no ext)"],
+  ["a/b*c", "/home/a/boc", true, "wildcard name (no ext)"],
+  ["a/b*c", "/home/a/b.c", true, "wildcard name (no ext)"],
+  ["a/b*c", "/home/a/abc", false, "wildcard name (no ext)"],
+  ["a/b*c", "/home/a/bcd", false, "wildcard name (no ext)"],
+
+  ["a/b*.c", "/home/a/b.c", true, "wildcard name (post)"],
+  ["a/b*.c", "/home/a/bof.c", true, "wildcard name (post)"],
+  ["a/b*.c", "/home/a/b.cat", false, "wildcard name (post)"],
+  ["a/b*.c", "/home/a/bc.cat", false, "wildcard name (post)"],
+  ["a/b*.c", "/home/a/ab.c", false, "wildcard name (post)"],
+  ["a/b*.c", "/home/a/ab.cat", false, "wildcard name (post)"],
+  ["a/b*.c", "/home/a/bc", false, "wildcard name (post)"],
+
+  ["a/*b.c", "/home/a/b.c", true, "wildcard name (pre)"],
+  ["a/*b.c", "/home/a/ab.c", true, "wildcard name (pre)"],
+  ["a/*b.c", "/home/a/b.cat", false, "wildcard name (pre)"],
+  ["a/*b.c", "/home/a/bc.c", false, "wildcard name (pre)"],
+  ["a/*b.c", "/home/a/ab.cat", false, "wildcard name (pre)"],
+  ["a/*b.c", "/home/a/bc", false, "wildcard name (pre)"],
+
+  ["a/*/b.c", "/home/a/a/b.c", true, "wildcard dir"],
+  ["a/*/b.c", "/home/a/b/b.c", true, "wildcard dir"],
+  ["a/*/b.c", "/home/a/b.c", false, "wildcard dir"],
+
+  ["a/*1/b.c", "/home/a/a1/b.c", true, "wildcard dir (pre)"],
+  ["a/*1/b.c", "/home/a/1/b.c", true, "wildcard dir (pre)"],
+  ["a/*1/b.c", "/home/a/b.c", false, "wildcard dir (pre)"],
+  ["a/*1/b.c", "/home/a/2/b.c", false, "wildcard dir (pre)"],
+  
+  ["a/1*/b.c", "/home/a/1a/b.c", true, "wildcard dir (post)"],
+  ["a/1*/b.c", "/home/a/1/b.c", true, "wildcard dir (post)"],
+  ["a/*1/b.c", "/home/a/b.c", false, "wildcard dir (post)"],
+  ["a/*1/b.c", "/home/a/2/b.c", false, "wildcard dir (post)"],
+  
+  ["a/b*/c/*d/*.e", "/home/a/b/c/d/1.e", true, "wildcard"],
+  ["a/b*/c/*d/*.e", "/home/a/b1/c/2d/3.e", true, "wildcard"],
+  ["a/b*/c/*d/*.e", "/home/a/b1/2d/3.e", false, "wildcard"],
+  ["a/b*/c/*d/*.e", "/home/a/b1/3/2d/3.e", false, "wildcard"],
+
+  ["a/**/b.c", "/home/a/b.c", true, "double star"],
+  ["a/**/b.c", "/home/a/1/b.c", true, "double star"],
+  ["a/**/b.c", "/home/a/1/2/b.c", true, "double star"],
+  ["a/**/b.c", "/home/a", false, "double star"],
+  ["a/**/b.c", "/home/b.c", false, "double star"],
+
+  ["/*", "/a.b", true, "absolute pattern"],
+  ["/*.b", "/a.b", true, "absolute pattern"],
+  ["/a.*", "/a.b", true, "absolute pattern"],
+  ["/a.*", "/a/a.b", false, "absolute pattern"],
+  ["/*/*", "/home/a.b", true, "absolute pattern"],
+  ["/**/a.b", "/a.b", true, "absolute pattern"],
+  ["/**/a.b", "/a/a.b", true, "absolute pattern"]
+]
