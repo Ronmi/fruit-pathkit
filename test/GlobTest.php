@@ -60,6 +60,27 @@ class GlobTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @dataProvider regP
+     */
+    public function testRegexpWithBase($pattern, $path, $expect, $msg)
+    {
+        $g = new Glob($pattern, "/");
+        $regexp = $g->regex("/home");
+
+        if ($expect) {
+            $this->assertRegExp($regexp, '/home/' . $path, sprintf(
+                "%s: pattern, path, regexp: [%s], [%s], [%s] expected to match",
+                $msg, $pattern, $path, $regexp
+            ));
+        } else {
+            $this->assertNotRegExp($regexp, '/home/' . $path, sprintf(
+                "%s: pattern, path, regexp: [%s], [%s], [%s] expected to not match",
+                $msg, $pattern, $path, $regexp
+            ));
+        }
+    }
+
     public function testStaticIterator()
     {
         $g = new Glob("test/assets/glob.regex.json", "/");

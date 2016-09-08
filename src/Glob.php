@@ -122,6 +122,9 @@ class Glob
         $ret = '/(^|\/)';
         if ($base != '') {
             $ret = '/^' . self::pathToRegexp($base, $this->separator);
+            if (substr($ret, strlen($ret)-1) !== '/') {
+                $ret .= '\/';
+            }
         }
 
         $max = count($this->parts);
