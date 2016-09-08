@@ -67,5 +67,7 @@
   ["/a.*", "/a/a.b", false, "absolute pattern"],
   ["/*/*", "/home/a.b", true, "absolute pattern"],
   ["/**/a.b", "/a.b", true, "absolute pattern"],
-  ["/**/a.b", "/a/a.b", true, "absolute pattern"]
+  ["/**/a.b", "/a/a.b", true, "absolute pattern"],
+  ["/**/**/a.b", "/a.b", true, "absolute pattern"],
+  ["/**/**/a.b", "/a/a.b", true, "absolute pattern"]
 ]

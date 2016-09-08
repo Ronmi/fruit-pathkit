@@ -31,7 +31,7 @@ class Glob
         $pattern = preg_replace('/\*{2,}/', '**', $pattern);
         $arr = explode('/', $pattern);
 
-        return array_map(
+        $tmp = array_map(
             function ($dir) use ($sep) {
                 if (strpos($dir, '**') !== false) {
                     return array(self::IGN, '**');
@@ -46,6 +46,16 @@ class Glob
             },
             $arr
         );
+
+        $ret = array($tmp[0]);
+        for ($cnt = 1; $cnt < count($tmp); $cnt++) {
+            $v = $tmp[$cnt];
+            if ($v[1] === '**' and $ret[count($ret)-1][1] === '**') {
+                continue;
+            }
+            array_push($ret, $v);
+        }
+        return $ret;
     }
 
     /**
