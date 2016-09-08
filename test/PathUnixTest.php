@@ -42,6 +42,7 @@ class PathUnixTest extends \PHPUnit_Framework_TestCase
             array("/b", "../../a", "/a"),
             array("/", "asd", "/asd"),
             array("/a/b/c/d/", "../../../e/f/g/", "/a/e/f/g"),
+            array("/a", "b", "/a/b"),
         );
     }
 

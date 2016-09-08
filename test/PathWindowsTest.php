@@ -37,6 +37,7 @@ class PathWindowsTest extends \PHPUnit_Framework_TestCase
             array("C:\\", "asd", "C:\\asd"),
             array("C:\\asd", "..", "C:\\"),
             array("C:\\a\\b\\c\\d\\", "..\\..\\..\\e\\f\\g\\", "C:\\a\\e\\f\\g"),
+            array("C:\\a", "b", "C:\\a\\b"),
         );
     }
 
