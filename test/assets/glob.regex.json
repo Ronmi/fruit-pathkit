@@ -1,6 +1,7 @@
 [
   ["a/b", "a/b", true, "simple case"],
   ["a/b", "/home/a/b", true, "simple case"],
+  ["a/b", "/home/xa/b", false, "simple case"],
   
   ["a/b.c", "/home/a/b.c", true, "with ext"],
   ["a/b.c*", "/home/a/b.cat", true, "wildcard ext (post)"],
@@ -54,6 +55,7 @@
   ["a/b*/c/*d/*.e", "/home/a/b1/c/2d/3.e", true, "wildcard"],
   ["a/b*/c/*d/*.e", "/home/a/b1/2d/3.e", false, "wildcard"],
   ["a/b*/c/*d/*.e", "/home/a/b1/3/2d/3.e", false, "wildcard"],
+  ["a/b*/c/*d/*.e", "/home/a/1b/c/d/1.e", false, "wildcard"],
 
   ["a/**/b.c", "/home/a/b.c", true, "double star"],
   ["a/**/b.c", "/home/a/1/b.c", true, "double star"],
