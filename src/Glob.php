@@ -86,7 +86,49 @@ class Glob
     /**
      * @return Iterator
      */
-    public function iterate($path = '')
+    public function iterate($base = '')
     {
+        $initLevel = 0;
+        if ($this->isAbs) {
+            // ignore $base
+            $base = '/';
+            $initLevel = 1;
+        } else {
+            if ($base === '') {
+                $base = '.';
+            }
+            $base = (new Path($base, null, $this->separator))->normalize();
+            if (!is_dir($base)) {
+                $base = dirname($base);
+            }
+        }
+
+        // array(data, level)
+        // level is index of $this->parts
+        $pending = array(array($base, $initLevel));
+        $max = count($this->parts);
+
+        while (($cur = array_pop($pending)) !== null) {
+            list($path, $level) = $cur;
+            if ($level >= $max) {
+                yield $path;
+                continue;
+            }
+
+            list($type, $data) = $this->parts[$level];
+
+            switch ($type) {
+                case self::DIR:
+                    $dest = (new Path($data, $path, $this->separator))->normalize();
+                    if (file_exists($dest)) {
+                        array_push($pending, array($dest, $level+1));
+                    }
+                    break;
+                case self::DYN:
+                    break;
+                case self::IGN:
+                    break;
+            }
+        }
     }
 }
