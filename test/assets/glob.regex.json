@@ -60,5 +60,9 @@
   ["a/**/b.c", "a/1/b.c", true, "double star"],
   ["a/**/b.c", "a/1/2/b.c", true, "double star"],
   ["a/**/b.c", "a", false, "double star"],
-  ["a/**/b.c", "b.c", false, "double star"]
+  ["a/**/b.c", "b.c", false, "double star"],
+
+  ["./*", "a", true, "special rule (.)"],
+  ["../a/b", "a/b", true, "special rule (..)"],
+  ["../../a/b", "a/b", true, "special rule (..)"]
 ]

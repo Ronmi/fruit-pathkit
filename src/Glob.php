@@ -21,8 +21,9 @@ namespace Fruit\PathKit;
 /// The pattern parser has pretty good fault tolerance:
 ///
 /// 1. No absolute pattern, `/a/b` will be `a/b`.
-/// 2. `**/**/a` will be `**/a`
+/// 2. `**/**/a` will be `**/a`, but `**/a/**/b` will remain unchanged.
 /// 3. Cannot use `**` with other patterns, so `a/b**/c` will be `a/**/c`
+/// 4. For security reason, you cannot glob upper directory. `../a` will be `a`, `a/b/../c` will be `a/c`
 class Glob
 {
     const DIR = 0; // static part
@@ -46,6 +47,7 @@ class Glob
     private static function parse($pattern, $sep)
     {
         $pattern = preg_replace('/\*{2,}/', '**', $pattern);
+        $pattern = substr((new Path($pattern, DIRECTORY_SEPARATOR))->normalize(), 1);
         $arr = explode('/', $pattern);
         if ((new Path($pattern, null, $sep))->isAbsolute()) {
             array_shift($arr);
