@@ -71,6 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="functions.html"><span>All</span></a></li>
       <li><a href="functions_func.html"><span>Functions</span></a></li>
+      <li><a href="functions_vars.html"><span>Variables</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -79,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -91,16 +92,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div><ul>
 <li>__construct()
-: <a class="el" href="class_fruit_1_1_path_kit_1_1_path.html#a1b3087c76fdb769c42bdb734c63a0a25">Path</a>
+: <a class="el" href="class_fruit_1_1_path_kit_1_1_glob.html#a09d70bc02a561a1cffef1b2207ceb12c">Glob</a>
+, <a class="el" href="class_fruit_1_1_path_kit_1_1_path.html#a1b3087c76fdb769c42bdb734c63a0a25">Path</a>
+</li>
+<li>DIR
+: <a class="el" href="class_fruit_1_1_path_kit_1_1_glob.html#a2b123d82bc793c33eef8da3cec482d92">Glob</a>
+</li>
+<li>DYN
+: <a class="el" href="class_fruit_1_1_path_kit_1_1_glob.html#aa1a65959bfae6de9dd56c6a6fc48bcf5">Glob</a>
 </li>
 <li>expand()
 : <a class="el" href="class_fruit_1_1_path_kit_1_1_path.html#a1265af507620abadbd8264a504385ce3">Path</a>
 </li>
+<li>IGN
+: <a class="el" href="class_fruit_1_1_path_kit_1_1_glob.html#a77c0f94cdec9a838c399b8d6a3b7cb26">Glob</a>
+</li>
 <li>isAbsolute()
 : <a class="el" href="class_fruit_1_1_path_kit_1_1_path.html#a5e4410057ba79a22065869e990dac3b2">Path</a>
 </li>
+<li>iterate()
+: <a class="el" href="class_fruit_1_1_path_kit_1_1_glob.html#af39ebae1fc4f8a754f783652d7ac9c4f">Glob</a>
+</li>
 <li>normalize()
 : <a class="el" href="class_fruit_1_1_path_kit_1_1_path.html#a8189efe6c41ceba4084f6b074d4a47c0">Path</a>
+</li>
+<li>pathToRegexp()
+: <a class="el" href="class_fruit_1_1_path_kit_1_1_glob.html#ad24b2487394126d3b84f7b1a366acfb1">Glob</a>
+</li>
+<li>regex()
+: <a class="el" href="class_fruit_1_1_path_kit_1_1_glob.html#a2056785421564acb0eff375c5cc9b9a0">Glob</a>
 </li>
 <li>relative()
 : <a class="el" href="class_fruit_1_1_path_kit_1_1_path.html#aaef3710c486ada0fb657da412a4ff559">Path</a>
@@ -112,7 +132,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 22 2015 16:49:33 for Fruit PathKit by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 13 2016 17:00:02 for Fruit PathKit by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

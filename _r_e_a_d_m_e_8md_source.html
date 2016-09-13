@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -91,17 +91,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;PathKit is set of tools handling path in filesystem.</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;It is still in early development stage, not usable.</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;[![Build Status](https://travis-ci.org/Ronmi/fruit-pathkit.svg)](https://travis-ci.org/Ronmi/fruit-pathkit)</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;[![Build Status](https://travis-ci.org/Ronmi/fruit-pathkit.svg)](https://travis-ci.org/Ronmi/fruit-pathkit)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;## Synopsis</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;## License</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;```php</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;Any version of MIT, GPL or LGPL.</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;// let&#39;s say if current working directory is /work/temp</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;$path = new Path(&#39;../my.file&#39;); // path is &#39;../my.file&#39;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;$path-&gt;isAbsolute(); // false</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;$path-&gt;expand(); // /work/temp/../my.file</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;$path-&gt;normalize(); // /work/my.file</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;$path-&gt;within(); // false, because /work/my.file does not belong to /work/temp</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;$path-&gt;within(&#39;/work&#39;); // true</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;$path-&gt;relative(); // ../my.file</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;$path-&gt;relative(&#39;/another/work&#39;); // ../../work/my.file</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;```</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;## License</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;Any version of MIT, GPL or LGPL.</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 22 2015 16:49:33 for Fruit PathKit by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 13 2016 17:00:02 for Fruit PathKit by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

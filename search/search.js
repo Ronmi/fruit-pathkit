@@ -7,11 +7,12 @@
 
 var indexSectionsWithContent =
 {
-  0: "_efinprw",
-  1: "p",
+  0: "_defginprw",
+  1: "gp",
   2: "f",
-  3: "pr",
-  4: "_einrw"
+  3: "gpr",
+  4: "_einprw",
+  5: "di"
 };
 
 var indexSectionNames =
@@ -20,7 +21,8 @@ var indexSectionNames =
   1: "classes",
   2: "namespaces",
   3: "files",
-  4: "functions"
+  4: "functions",
+  5: "variables"
 };
 
 function convertToId(search)

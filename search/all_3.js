@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['isabsolute',['isAbsolute',['../class_fruit_1_1_path_kit_1_1_path.html#a5e4410057ba79a22065869e990dac3b2',1,'Fruit::PathKit::Path']]]
+  ['fruit',['Fruit',['../namespace_fruit.html',1,'']]],
+  ['pathkit',['PathKit',['../namespace_fruit_1_1_path_kit.html',1,'Fruit']]]
 ];

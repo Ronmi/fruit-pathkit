@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['relative',['relative',['../class_fruit_1_1_path_kit_1_1_path.html#aaef3710c486ada0fb657da412a4ff559',1,'Fruit::PathKit::Path']]]
+  ['pathtoregexp',['pathToRegexp',['../class_fruit_1_1_path_kit_1_1_glob.html#ad24b2487394126d3b84f7b1a366acfb1',1,'Fruit::PathKit::Glob']]]
 ];
