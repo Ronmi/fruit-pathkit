@@ -2,30 +2,34 @@
 
 namespace Fruit\PathKit;
 
+///
 /// An easy to use globbing system.
 ///
 /// Basically, the pattern is composed by `/`, `*`, `**` and names.
 /// For example:
 ///
-/// > // matches this files
-/// > foo/bar.json
-/// > // matches all .json files in current directory
-/// > *.json
-/// > // matches all xxxTest.php files in child directory, not recursive
-/// > */*Test.php
-/// > // same as above, but recursive
-/// > test/**/*Test.php
-/// > // recursively match all children
-/// > test/**
+///   // matches this files
+///   foo/bar.json
+///   // matches all .json files in current directory
+///   *.json
+///   // matches all xxxTest.php files in child directory, not recursive
+///   */*Test.php
+///   // same as above, but recursive
+///   test/**/*Test.php
+///   // recursively match all children
+///   test/**
 ///
 /// The pattern parser has pretty good fault tolerance:
 ///
-/// 1. No absolute pattern, `/a/b` will be `a/b`.
-/// 2. `**/**/a` will be `**/a`, but `**/a/**/b` will remain unchanged.
-/// 3. Cannot use `**` with other patterns, so `a/b**/c` will be `a/**/c`
+/// 1. `**`/`**`/`a` will be `**`/`a`
+/// 2. No absolute pattern, `/a/b` will be `a/b`.
+/// 3. Cannot use `**` with other patterns, so `a`/`b**`/`c` will be `a`/`**`/`c`
 /// 4. For security reason, you cannot glob upper directory. `../a` will be `a`, `a/b/../c` will be `a/c`
+///
 class Glob
 {
+    /// constants
+    ///
     const DIR = 0; // static part
     const DYN = 1; // xxx*xxx part
     const IGN = 2; // ** part
