@@ -5,7 +5,7 @@ namespace FruitTest\PathKit;
 use Fruit\PathKit\Glob;
 use Fruit\PathKit\Path;
 
-class GlobTest extends \PHPUnit_Framework_TestCase
+class GlobTest extends \PHPUnit\Framework\TestCase
 {
     public function convP()
     {

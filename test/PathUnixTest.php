@@ -4,7 +4,7 @@ namespace FruitTest\PathKit;
 
 use Fruit\PathKit\Path;
 
-class PathUnixTest extends \PHPUnit_Framework_TestCase
+class PathUnixTest extends \PHPUnit\Framework\TestCase
 {
     public function expendP()
     {
