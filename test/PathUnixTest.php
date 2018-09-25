@@ -156,4 +156,13 @@ class PathUnixTest extends \PHPUnit\Framework\TestCase
         $actual = $p->isAbsolute();
         $this->assertEquals($expect, $actual);
     }
+
+    public function testJoin()
+    {
+        $p = new Path('a', '/', '/');
+        $p->join('b', '/c', 'd/', '/e/', 'f');
+        $expect = 'a/b/c/d/e/f';
+        $actual = $p->path;
+        $this->assertEquals($expect, $actual);
+    }
 }

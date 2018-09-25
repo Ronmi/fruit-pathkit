@@ -204,4 +204,31 @@ class Path
 
         return implode($this->separator, $ret);
     }
+
+    /**
+     * Append some path after current path.
+     *
+     * @return self
+     */
+    public function join(string ...$path): self
+    {
+        foreach ($path as $p) {
+            $this->path = rtrim($this->path, $this->separator);
+            $this->path .= $this->separator . ltrim($p, $this->separator);
+        }
+
+        return $this;
+    }
+
+    public function __get(string $name)
+    {
+        switch ($name) {
+            case 'path':
+                return $this->path;
+            case 'separator':
+                return $this->separator;
+            case 'base':
+                return $this->base;
+        }
+    }
 }
