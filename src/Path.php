@@ -231,4 +231,23 @@ class Path
                 return $this->base;
         }
     }
+
+    /**
+     * Get root path, `/` on unix, root of current working drive on windows.
+     *
+     * @return string of root path.
+     */
+    public static function root(): string
+    {
+        $sep = DIRECTORY_SEPARATOR;
+
+        if ($sep === '/') {
+            // quick solution for unix path
+            return $sep;
+        }
+
+        $cwd = getcwd();
+        list($root) = explode($sep, $cwd);
+        return $root . $sep;
+    }
 }
