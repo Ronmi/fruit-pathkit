@@ -2,6 +2,8 @@
 
 namespace Fruit\PathKit;
 
+use Iterator;
+
 ///
 /// An easy to use globbing system.
 ///
@@ -39,21 +41,21 @@ class Glob
     private $parts;
     private $separator;
 
-    public function __construct($pattern, $separator = null)
+    public function __construct(string $pattern, string $separator = '')
     {
-        if ($separator == '') {
+        if ($separator === '') {
             $separator = DIRECTORY_SEPARATOR;
         }
         $this->separator = $separator;
         $this->parts = self::parse($pattern, $separator);
     }
 
-    private static function parse($pattern, $sep)
+    private static function parse(string $pattern, string $sep): array
     {
         $pattern = preg_replace('/\*{2,}/', '**', $pattern);
         $pattern = substr((new Path($pattern, DIRECTORY_SEPARATOR))->normalize(), 1);
         $arr = explode('/', $pattern);
-        if ((new Path($pattern, null, $sep))->isAbsolute()) {
+        if ((new Path($pattern, '', $sep))->isAbsolute()) {
             array_shift($arr);
         }
 
@@ -91,7 +93,7 @@ class Glob
      *
      * @return string
      */
-    public static function pathToRegexp($path, $separator)
+    public static function pathToRegexp(string $path, string $separator): string
     {
         $ret = $path;
         if ($separator != "\\") {
@@ -123,7 +125,7 @@ class Glob
      *
      * @return string
      */
-    public function regex($base = '')
+    public function regex(string $base = ''): string
     {
         $ret = '/(^|\/)';
         if ($base != '') {
@@ -171,12 +173,12 @@ class Glob
      *
      * @return Iterator
      */
-    public function iterate($base = '')
+    public function iterate(string $base = ''): Iterator
     {
         if ($base === '') {
             $base = '.';
         }
-        $base = (new Path($base, null, $this->separator))->normalize();
+        $base = (new Path($base, '', $this->separator))->normalize();
         if (!is_dir($base)) {
             $base = dirname($base);
         }

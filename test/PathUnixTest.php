@@ -89,25 +89,25 @@ class PathUnixTest extends \PHPUnit_Framework_TestCase
     public function relativeP()
     {
         return array(
-            array("/a", "/a/b/c", null, "b/c"),
-            array("/a/b", "/a/c", null, "../c"),
-            array("/a", "/d/b/c", null, "../d/b/c"),
-            array("/a", ".", null, "."),
-            array("/", ".", null, "."),
-            array("/", "..", null, "."),
-            array("/", "/", null, "."),
-            array("/a/b", "..", null, ".."),
-            array("/a", "..", null, ".."),
-            array("/", "a", null, "a"),
+            array("/a", "/a/b/c", '', "b/c"),
+            array("/a/b", "/a/c", '', "../c"),
+            array("/a", "/d/b/c", '', "../d/b/c"),
+            array("/a", ".", '', "."),
+            array("/", ".", '', "."),
+            array("/", "..", '', "."),
+            array("/", "/", '', "."),
+            array("/a/b", "..", '', ".."),
+            array("/a", "..", '', ".."),
+            array("/", "a", '', "a"),
             array("/work/temp", "../my.file", "/another/work", "../../work/my.file"),
 
             // test against asterisk
-            array("/a", "/a/*/c", null, "*/c"),
-            array("/a/b", "/a/*", null, "../*"),
-            array("/a", "/d/*/c", null, "../d/*/c"),
-            array("/a", "*", null, "*"),
-            array("/", "*", null, "*"),
-            array("/", "../*", null, "*"),
+            array("/a", "/a/*/c", '', "*/c"),
+            array("/a/b", "/a/*", '', "../*"),
+            array("/a", "/d/*/c", '', "../d/*/c"),
+            array("/a", "*", '', "*"),
+            array("/", "*", '', "*"),
+            array("/", "../*", '', "*"),
             array("/work/temp", "../*", "/another/work", "../../work/*"),
         );
     }

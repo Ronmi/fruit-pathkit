@@ -22,16 +22,16 @@ class Path
               relative path to absolute path. default to current working directory.
      * @param $separator string directory separator, defaults to DIRECTORY_SEPARATOR.
      */
-    public function __construct($path, $base = null, $separator = null)
+    public function __construct(string $path, string $base = '', string $separator = '')
     {
         $this->path = $path;
         $this->base = $base;
-        if ($separator == null) {
+        if ($separator === '') {
             $separator = DIRECTORY_SEPARATOR;
         }
         $this->separator = $separator;
 
-        if ($base == null) {
+        if ($base === '') {
             $base = getcwd();
         }
         $base = self::strip($base, $separator);
@@ -41,7 +41,7 @@ class Path
         $this->normalized = null;
     }
 
-    private static function strip($path, $sep)
+    private static function strip(string $path, string $sep): string
     {
         if (substr($path, strlen($path) - 1) == $sep) {
             $path = substr($path, 0, strlen($path) - 1);
@@ -49,7 +49,7 @@ class Path
         return $path;
     }
 
-    private static function isAbs($path, $sep)
+    private static function isAbs(string $path, string $sep): bool
     {
         list($drive) = explode($sep, $path);
         return ($drive === '' or (strlen($drive) === 2 and ctype_alpha($drive[0]) and $drive[1] === ':'));
@@ -58,12 +58,12 @@ class Path
     /**
      * Test if this is an absolute path
      */
-    public function isAbsolute()
+    public function isAbsolute(): bool
     {
         return self::isAbs($this->path, $this->separator);
     }
 
-    private static function doExpand($path, $base, $sep)
+    private static function doExpand(string $path, string $base, string $sep): string
     {
         if (self::isAbs($path, $sep)) {
             // this is absolute path
@@ -78,7 +78,7 @@ class Path
      *
      * @return Full path.
      */
-    public function expand()
+    public function expand(): string
     {
         if ($this->expanded == null) {
             $this->expanded = self::doExpand($this->path, $this->base, $this->separator);
@@ -86,7 +86,7 @@ class Path
         return $this->expanded;
     }
 
-    private static function doNorm($path, $base, $sep)
+    private static function doNorm(string $path, string $base, string $sep): string
     {
         $abs = self::doExpand($path, $base, $sep);
         $arr = explode($sep, $abs);
@@ -124,7 +124,7 @@ class Path
      *
      * @return Full path.
      */
-    public function normalize()
+    public function normalize(): string
     {
         if ($this->normalized == null) {
             $this->normalized = self::doNorm($this->path, $this->base, $this->separator);
@@ -138,13 +138,13 @@ class Path
      * @param string $base "Specified directory"
      * @return true or false.
      */
-    public function within($base = null)
+    public function within(string $base = ''): bool
     {
-        if ($base == null) {
+        if ($base === '') {
             $base = $this->base;
         }
         $path = $this->normalize($this->path);
-        $base = (new self($base, null, $this->separator))->normalize();
+        $base = (new self($base, '', $this->separator))->normalize();
         $ret = false;
         if (substr($path, 0, strlen($base)) == $base) {
             $ret = true;
@@ -158,9 +158,9 @@ class Path
      * @param string $base Path of basement.
      * @return string of relative path from base to target.
      */
-    public function relative($base = null)
+    public function relative(string $base = ''): string
     {
-        if ($base == null) {
+        if ($base === '') {
             $base = $this->base;
         }
         $norm = $this->normalize();
