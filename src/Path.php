@@ -99,13 +99,13 @@ class Path
             switch ($ele) {
                 case '.':
                 case '':
-                    continue;
+                    break;
                 case '..':
                     $cur--;
                     if ($cur < 1) {
                         $cur = 1;
                     }
-                    continue;
+                    break;
                 default:
                     $ret[$cur++] = $ele;
             }
